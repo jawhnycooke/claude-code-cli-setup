@@ -1,0 +1,14 @@
+{
+  "bash": [
+    "uv:*",
+    "uvx:*",
+    "brew:*",
+    "apt:*",
+    "apt-get:*",
+    "yum:*",
+    "dnf:*",
+    "cargo:*",
+    "rustup:*",
+    "go:*"
+  ]
+}

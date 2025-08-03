@@ -1,0 +1,50 @@
+# Python-based Dockerfile for testing claude-code-setup package
+FROM python:3.11-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install uv for fast Python package management
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+ENV PATH="/root/.local/bin:$PATH"
+
+WORKDIR /app
+
+# Copy package files and dependencies
+COPY pyproject.toml README.md ./
+COPY requirements*.txt ./
+COPY src/ ./src/
+COPY tests/ ./tests/
+
+# Install development dependencies for building
+RUN uv venv .venv
+RUN . .venv/bin/activate && \
+    uv pip install build && \
+    uv pip install -r requirements-dev.txt
+
+# Build the Python package (wheel)
+RUN . .venv/bin/activate && python -m build
+
+# Create a test directory to simulate real-world installation
+WORKDIR /test-project
+
+# Create a clean Python environment for testing the package
+RUN uv venv test-env
+
+# Install the package using the wheel (simulates real-world installation via pip)
+RUN . test-env/bin/activate && \
+    uv pip install /app/dist/*.whl
+
+# Copy the test script
+COPY tests/docker/test-installed-package-python.sh ./
+RUN chmod +x ./test-installed-package-python.sh
+
+# Set environment variable to indicate CLI testing
+ENV RUN_CLI_TESTS=true
+ENV PYTHONPATH=/test-project/test-env/lib/python3.11/site-packages
+
+# Run the test script
+CMD ["./test-installed-package-python.sh"]

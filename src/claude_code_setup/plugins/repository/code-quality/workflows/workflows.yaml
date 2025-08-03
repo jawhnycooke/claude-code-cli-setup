@@ -1,0 +1,145 @@
+# Code Quality Plugin Workflows
+
+workflows:
+  - name: full-code-review
+    display_name: Full Code Review Workflow
+    description: Comprehensive code review with multiple quality checks
+    version: "1.0.0"
+    author: Claude Code Setup Team
+    tags:
+      - code-review
+      - quality
+      - automated
+    
+    requires_agents:
+      - code-quality/code-reviewer
+      - code-quality/complexity-analyzer
+    requires_templates:
+      - code-review-enhanced
+    
+    steps:
+      - id: main
+        name: Start Review
+        type: sequential
+        description: Main review sequence
+        steps:
+          - id: prepare
+            name: Prepare Review
+            type: command
+            description: Prepare environment for review
+            command: echo "Starting code review..."
+            outputs:
+              timestamp: review_start_time
+            on_success: analyze-complexity
+          
+          - id: analyze-complexity
+            name: Analyze Complexity
+            type: agent
+            description: Check code complexity
+            agent: code-quality/complexity-analyzer
+            config:
+              max_complexity: 10
+              check_cognitive: true
+            inputs:
+              file: current_file
+            outputs:
+              complex_functions: complexity_issues
+            on_success: review-code
+            on_failure: report-failure
+          
+          - id: review-code
+            name: Review Code
+            type: agent
+            description: Perform detailed code review
+            agent: code-quality/code-reviewer
+            inputs:
+              file: current_file
+              complexity_issues: complexity_issues
+            outputs:
+              issues: review_issues
+              suggestions: review_suggestions
+            on_success: generate-report
+            on_failure: report-failure
+          
+          - id: generate-report
+            name: Generate Report
+            type: template
+            description: Create review report
+            template: code-review-enhanced
+            inputs:
+              issues: review_issues
+              suggestions: review_suggestions
+              complexity: complexity_issues
+              timestamp: review_start_time
+            outputs:
+              report_path: generated_report
+          
+          - id: report-failure
+            name: Report Failure
+            type: command
+            description: Handle review failure
+            command: echo "Review failed - check logs"
+    
+    entry_point: main
+    
+    default_config:
+      max_complexity: 10
+      review_level: standard
+    
+    examples:
+      - description: Review a Python file
+        command: claude-setup workflow run code-quality/full-code-review --file main.py
+      - description: Review with strict complexity
+        command: claude-setup workflow run code-quality/full-code-review --config max_complexity=5
+
+  - name: quick-lint
+    display_name: Quick Lint Check
+    description: Fast linting and basic checks
+    version: "1.0.0"
+    tags:
+      - lint
+      - quick
+      - validation
+    
+    steps:
+      - id: lint
+        name: Run Linters
+        type: parallel
+        description: Run multiple linters in parallel
+        steps:
+          - id: style-check
+            name: Check Style
+            type: hook
+            description: Trigger style check hook
+            hook: pre-commit-review
+            config:
+              checks: [style, formatting]
+          
+          - id: syntax-check
+            name: Check Syntax
+            type: command
+            description: Validate syntax
+            command: python -m py_compile ${file}
+            inputs:
+              file: target_file
+        
+        on_success: report-success
+        on_failure: report-issues
+      
+      - id: report-success
+        name: Report Success
+        type: command
+        description: Report successful lint
+        command: echo "✅ All checks passed!"
+      
+      - id: report-issues
+        name: Report Issues
+        type: command
+        description: Report lint issues
+        command: echo "❌ Lint issues found - see above"
+    
+    entry_point: lint
+    
+    examples:
+      - description: Quick lint a file
+        command: claude-setup workflow run code-quality/quick-lint --file utils.py

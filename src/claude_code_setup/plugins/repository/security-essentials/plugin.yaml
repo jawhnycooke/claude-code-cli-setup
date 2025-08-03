@@ -1,0 +1,40 @@
+metadata:
+  name: security-essentials
+  display_name: Security Essentials
+  version: "1.0.0"
+  description: Essential security hooks and templates for safe development
+  author: Claude Code Setup Team
+  license: MIT
+  homepage: https://github.com/jawhnycooke/claude-code-setup
+  repository: https://github.com/jawhnycooke/claude-code-setup
+  keywords:
+    - security
+    - protection
+    - validation
+    - safety
+  category: security
+
+dependencies: []
+
+provides:
+  hooks:
+    - enhanced-file-limiter
+    - strict-command-validator
+    - secret-scanner
+  templates:
+    - security-audit
+
+requires_python: ">=3.9"
+
+config_schema:
+  type: object
+  properties:
+    max_files_per_operation:
+      type: integer
+      default: 5
+    scan_for_secrets:
+      type: boolean
+      default: true
+    block_dangerous_commands:
+      type: boolean
+      default: true

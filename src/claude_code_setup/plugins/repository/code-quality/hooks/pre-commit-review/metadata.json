@@ -1,0 +1,8 @@
+{
+  "name": "pre-commit-review",
+  "description": "Automated code review before committing changes",
+  "category": "quality",
+  "event": "PreToolUse",
+  "matcher": "Git(commit:*)",
+  "dependencies": []
+}

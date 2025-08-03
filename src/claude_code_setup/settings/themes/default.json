@@ -1,0 +1,11 @@
+{
+  "theme": "default",
+  "colors": {
+    "primary": "blue",
+    "secondary": "gray",
+    "success": "green",
+    "warning": "yellow",
+    "error": "red",
+    "info": "cyan"
+  }
+}

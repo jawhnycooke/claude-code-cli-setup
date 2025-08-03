@@ -1,0 +1,45 @@
+# Code Quality Plugin Agents
+
+agents:
+  - name: code-reviewer
+    display_name: Code Review Agent
+    description: Performs comprehensive code review with best practices analysis
+    capabilities:
+      - code_review
+      - documentation
+      - refactoring
+    entry_point: code_reviewer.py
+    system_prompt: |
+      You are an expert code reviewer focused on:
+      - Code quality and maintainability
+      - Best practices and design patterns
+      - Performance considerations
+      - Security implications
+      - Documentation completeness
+    max_iterations: 5
+    timeout_seconds: 180
+    examples:
+      - description: Review a Python module
+        command: claude-setup agent run code-quality/code-reviewer --file module.py
+      - description: Review with specific focus
+        command: claude-setup agent run code-quality/code-reviewer --focus security
+
+  - name: complexity-analyzer
+    display_name: Code Complexity Analyzer
+    description: Analyzes code complexity and suggests simplifications
+    capabilities:
+      - code_review
+      - refactoring
+      - performance_analysis
+    entry_point: complexity_analyzer
+    config_schema:
+      max_complexity:
+        type: integer
+        default: 10
+        description: Maximum cyclomatic complexity threshold
+      check_cognitive:
+        type: boolean
+        default: true
+        description: Check cognitive complexity
+    max_iterations: 3
+    timeout_seconds: 120

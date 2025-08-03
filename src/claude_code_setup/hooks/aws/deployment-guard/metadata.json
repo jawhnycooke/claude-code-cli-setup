@@ -1,0 +1,26 @@
+{
+  "name": "deployment-guard",
+  "description": "Validates AWS operations and prevents dangerous commands",
+  "category": "aws",
+  "event": "PreToolUse",
+  "matcher": "Bash",
+  "dependencies": ["python3"],
+  "config": {
+    "type": "command",
+    "command": "python3 .claude/hooks/deployment-guard/validate_aws_command.py"
+  },
+  "environment": {
+    "ALLOW_PRODUCTION": {
+      "default": "false",
+      "description": "Allow operations on production resources (true/false)"
+    },
+    "MAX_LAMBDA_MEMORY": {
+      "default": "1024",
+      "description": "Maximum Lambda memory size in MB"
+    },
+    "MAX_LAMBDA_TIMEOUT": {
+      "default": "300",
+      "description": "Maximum Lambda timeout in seconds"
+    }
+  }
+}

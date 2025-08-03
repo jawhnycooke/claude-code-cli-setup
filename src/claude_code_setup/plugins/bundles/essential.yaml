@@ -1,0 +1,8 @@
+name: essential
+display_name: Essential Bundle
+description: Core tools for professional development - includes code quality, security, and project management
+category: bundle
+
+plugins:
+  code-quality: "^1.0.0"
+  security-essentials: "^1.0.0"

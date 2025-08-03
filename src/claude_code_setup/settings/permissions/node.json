@@ -1,0 +1,24 @@
+{
+  "bash": [
+    "npm:*",
+    "npx:*",
+    "node:*",
+    "yarn:*",
+    "pnpm:*",
+    "bun:*",
+    "nvm:*",
+    "nx:*",
+    "tsc:*",
+    "eslint:*",
+    "prettier:*",
+    "vitest:*",
+    "jest:*",
+    "mocha:*",
+    "rollup:*",
+    "webpack:*",
+    "esbuild:*",
+    "tsup:*",
+    "vite:*",
+    "next:*"
+  ]
+}

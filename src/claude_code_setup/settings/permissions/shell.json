@@ -1,0 +1,24 @@
+{
+  "bash": [
+    "ls:*",
+    "find:*",
+    "grep:*",
+    "cat:*",
+    "touch:*",
+    "mkdir:*",
+    "rm:*",
+    "cd:*",
+    "pwd:*",
+    "echo:*",
+    "sed:*",
+    "awk:*",
+    "jq:*",
+    "curl:*",
+    "wget:*",
+    "tar:*",
+    "zip:*",
+    "unzip:*",
+    "ssh:*",
+    "scp:*"
+  ]
+}

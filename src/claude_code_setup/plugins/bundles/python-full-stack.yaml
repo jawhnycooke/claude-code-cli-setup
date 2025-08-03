@@ -1,0 +1,9 @@
+name: python-full-stack
+display_name: Python Full Stack Bundle
+description: Complete Python development environment with quality tools and security
+category: bundle
+
+plugins:
+  python-developer: "^1.0.0"
+  code-quality: "^1.0.0"
+  security-essentials: "^1.0.0"

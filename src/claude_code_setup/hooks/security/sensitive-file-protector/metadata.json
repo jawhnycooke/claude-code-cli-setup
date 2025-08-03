@@ -1,0 +1,18 @@
+{
+  "name": "sensitive-file-protector",
+  "description": "Prevents modifications to sensitive files like .env, credentials, and private keys",
+  "category": "security",
+  "event": "PreToolUse",
+  "matcher": "Edit|MultiEdit|Write|Bash",
+  "dependencies": ["python3"],
+  "config": {
+    "type": "command",
+    "command": "python3 .claude/hooks/sensitive-file-protector/sensitive_file_protector.py"
+  },
+  "environment": {
+    "SENSITIVE_FILE_PATTERNS": {
+      "default": "",
+      "description": "Comma-separated list of additional regex patterns for sensitive files"
+    }
+  }
+}

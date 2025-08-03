@@ -1,0 +1,12 @@
+{
+  "name": "test-enforcement",
+  "description": "Automatically runs tests after code changes and blocks further changes if tests fail",
+  "category": "testing",
+  "event": "PostToolUse",
+  "matcher": "Edit|MultiEdit|Write",
+  "dependencies": ["bash", "jq"],
+  "config": {
+    "type": "command",
+    "command": "bash .claude/hooks/test-enforcement/run_tests_on_change.sh"
+  }
+}

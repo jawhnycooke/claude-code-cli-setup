@@ -1,0 +1,22 @@
+{
+  "name": "file-change-limiter",
+  "description": "Limits the number of files and lines that can be modified in a single operation",
+  "category": "security",
+  "event": "PreToolUse",
+  "matcher": "Edit|MultiEdit|Write",
+  "dependencies": ["python3"],
+  "config": {
+    "type": "command",
+    "command": "python3 .claude/hooks/file-change-limiter/limit_file_changes.py"
+  },
+  "environment": {
+    "MAX_FILES_PER_OPERATION": {
+      "default": "3",
+      "description": "Maximum number of files that can be modified in one operation"
+    },
+    "MAX_LINES_PER_FILE": {
+      "default": "100",
+      "description": "Maximum number of lines allowed per file"
+    }
+  }
+}

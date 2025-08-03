@@ -1,0 +1,26 @@
+{
+  "bash": [
+    "python:*",
+    "pip:*",
+    "venv:*",
+    "conda:*",
+    "poetry:*",
+    "pdm:*",
+    "pyenv:*",
+    "black:*",
+    "isort:*",
+    "mypy:*",
+    "ruff:*",
+    "flake8:*",
+    "pylint:*",
+    "bandit:*",
+    "pycodestyle:*",
+    "pydocstyle:*",
+    "pytest:*",
+    "coverage:*",
+    "tox:*",
+    "hypothesis:*",
+    "pdb:*",
+    "ipdb:*"
+  ]
+}

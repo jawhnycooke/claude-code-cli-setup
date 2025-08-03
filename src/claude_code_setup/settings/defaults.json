@@ -1,0 +1,15 @@
+{
+  "autoUpdaterStatus": true,
+  "preferredNotifChannel": "terminal",
+  "verbose": false,
+  "env": {},
+  "ignorePatterns": [
+    "node_modules",
+    ".git",
+    "*.log",
+    "dist",
+    "build",
+    "__pycache__",
+    "*.pyc"
+  ]
+}

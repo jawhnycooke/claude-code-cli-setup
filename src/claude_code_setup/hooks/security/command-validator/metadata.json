@@ -1,0 +1,18 @@
+{
+  "name": "command-validator",
+  "description": "Validates bash commands and blocks dangerous operations",
+  "category": "security",
+  "event": "PreToolUse",
+  "matcher": "Bash",
+  "dependencies": ["python3"],
+  "config": {
+    "type": "command",
+    "command": "python3 .claude/hooks/command-validator/command_validator.py"
+  },
+  "environment": {
+    "ALLOW_WARNINGS": {
+      "default": "false",
+      "description": "Allow commands that normally require confirmation (true/false)"
+    }
+  }
+}
